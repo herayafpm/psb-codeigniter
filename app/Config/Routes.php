@@ -56,6 +56,16 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin','filter'=> 'admi
         $routes->post('ubah/(:segment)', 'Bank::ubah_proc/$1');
         $routes->post('delete/(:segment)', 'Bank::delete/$1');
     });
+    $routes->group('tahun_ajaran',function($routes)
+    {
+        $routes->get('/', 'TahunAjaran::index');
+        $routes->get('detail/(:segment)', 'TahunAjaran::detail/$1');
+        $routes->get('tambah', 'TahunAjaran::tambah_view');
+        $routes->post('tambah', 'TahunAjaran::tambah_proc');
+        $routes->get('ubah/(:segment)', 'TahunAjaran::ubah_view/$1');
+        $routes->post('ubah/(:segment)', 'TahunAjaran::ubah_proc/$1');
+        $routes->post('delete/(:segment)', 'TahunAjaran::delete/$1');
+    });
 });
 /**
  * --------------------------------------------------------------------
