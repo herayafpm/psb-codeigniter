@@ -38,7 +38,24 @@ $routes->group('auth', function($routes)
     $routes->get('register', 'Auth::register_view');
     $routes->get('pembayaran', 'Auth::pembayaran_view');
     $routes->post('pembayaran', 'Auth::pembayaran_proc');
-    $routes->post('logout', 'Auth::logout');
+    $routes->get('logout', 'Auth::logout');
+});
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin','filter'=> 'adminfilter'],function($routes)
+{
+    $routes->get('/', function(){
+        return redirect('admin/dashboard');
+    });
+    $routes->get('dashboard', 'Dashboard::index');
+    $routes->group('bank',function($routes)
+    {
+        $routes->get('/', 'Bank::index');
+        $routes->get('detail/(:segment)', 'Bank::detail/$1');
+        $routes->get('tambah', 'Bank::tambah_view');
+        $routes->post('tambah', 'Bank::tambah_proc');
+        $routes->get('ubah/(:segment)', 'Bank::ubah_view/$1');
+        $routes->post('ubah/(:segment)', 'Bank::ubah_proc/$1');
+        $routes->post('delete/(:segment)', 'Bank::delete/$1');
+    });
 });
 /**
  * --------------------------------------------------------------------

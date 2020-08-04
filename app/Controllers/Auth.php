@@ -46,7 +46,11 @@ class Auth extends BaseController
       $session->setFlashdata('message', 'Username atau password salah!');
       return redirect()->to('/auth/login')->withInput();
     }else{
-       return redirect()->to('/');
+      $session->set([
+        'isLoggedIn' => true,
+        'user' => $user
+      ]);
+      return redirect()->to('/');
     }
   }
   public function register_view()
@@ -146,6 +150,13 @@ class Auth extends BaseController
       return redirect()->to('/auth/pembayaran')->withInput();
     }
 
+  }
+  public function logout()
+  {
+    $session = \Config\Services::session();
+    $session->destroy();
+    $session->setFlashdata('message', 'Anda berhasil keluar sesi!');
+    return redirect()->to('/auth/login')->withInput();
   }
 	//--------------------------------------------------------------------
 
