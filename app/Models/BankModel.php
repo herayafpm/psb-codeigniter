@@ -22,4 +22,16 @@ class BankModel extends Model
     // protected $validationRules    = [];
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
+    public function countAll()
+    {
+        $db = db_connect();
+        return $db->table('bank')->countAll();
+    }
+    public function search($cari)
+    {
+        $db = db_connect();
+        $builder = $db->table('bank');
+        $banks = $builder->like('nama_bank',$cari,'after')->get()->getResultArray();
+        return $banks;
+    }
 }
